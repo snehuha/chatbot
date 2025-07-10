@@ -2,14 +2,12 @@ import React from "react";
 
 const Header = () => {
     return(
-    <header className="w-full p-4">
-        <div className="bg-pink-100 rounded-lg px-4 py-2 inline block">
-            <h1 className="text-gray-800 text-xl font-medium">
-                Luna
-            </h1>
+    <header className="header-root">
+        <div className="header-title-bg">
+            <h1 className="header-title">Luna</h1>
         </div>
+        <div className="header-underline"></div>
     </header>);
-    
 };
 
 export default Header;

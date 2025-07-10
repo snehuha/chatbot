@@ -1,0 +1,15 @@
+/* index.css: global styles and reset */
+
+@import './app.css';
+
+/* Simple CSS reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: system-ui, sans-serif;
+  background: #fff;
+  color: #1f2937;
+} 
