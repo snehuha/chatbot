@@ -10,7 +10,7 @@ const Home = () =>{
     return (
         <Layout>
             <div className="greeting-card">
-                Hi, I’m Luna, and this is your safe space
+                Hi, I'm Luna, and this is your safe space
             </div>
             <div className="button-group">
                 <div className="button-col">
