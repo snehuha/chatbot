@@ -1,12 +1,24 @@
+import { useNavigate } from 'react-router-dom';
 import React from "react";
 import Header from "../components/common/Header";
 import Button from "../components/common/Button";
 import Layout from "../components/common/Layout";
 
+
 const Home = () =>{
+    const navigate = useNavigate();
     const handleClick = (buttonName) => {
-        alert(`${buttonName} button clicked`);
+    const routes={
+        Talk: "/talk",  
+        Journal: "/journal",
     };
+    if (routes[buttonName]) {
+        navigate(routes[buttonName]);
+      } else {
+        alert(`${buttonName} button clicked`);
+      }
+    };
+    
     return (
         <Layout>
             <div className="greeting-card">
