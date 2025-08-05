@@ -10,7 +10,7 @@ export default function Journal() {
     <div className="min-h-screen bg-sky-200 p-6 flex flex-col items-center">
       <Header />
       <div className="text-center mb-8">
-        <button className="bg white px-4 py=4 inline-block text-3xl font-serif border-2 border-black rounded-lg px-6 py-2 shadow-md bg-gray-100 mb-4">
+        <button className="bg-white inline-block text-3xl font-serif border-2 border-black rounded-lg px-6 py-2 shadow-md bg-gray-100 mb-4">
           Your Journal
         </button>
         
@@ -18,7 +18,7 @@ export default function Journal() {
       </div>
 
       <div className="w-full max-w-3xl">
-        <div className="flex gap- mb-8">
+        <div className="flex gap-4 mb-8">
           <button className="bg-white px-4 py-4 rounded border-4 border-black shadow hover:bg-gray-100 transition-colors ">
             Prompt
           </button>
