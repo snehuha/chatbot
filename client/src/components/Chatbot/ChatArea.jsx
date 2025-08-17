@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import InputField from "./InputField";
 import MsgBubble from "./MsgBubble";
-import { fetchGeminiResponse } from "../../lib/gemini";
+import talkToBackend from "../../lib/api.js";
 
 const ChatArea = () => {
   const [messages, setMessages] = useState([{
@@ -16,12 +16,7 @@ const ChatArea = () => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
   
-  // Mock API call (replace with actual Gemini API)
-  const fetchGeminiResponse = async (message) => {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    return `I understand you're saying: "${message}". How does that make you feel?`;
-  };
+  
   
   const handleUserMessage = async (msg) => {
     // Add user's message
@@ -32,8 +27,8 @@ const ChatArea = () => {
     setIsTyping(true);
     
     try {
-      // Call API (mock for now)
-      const aiResponse = await fetchGeminiResponse(msg);
+      // Call API 
+      const aiResponse = await talkToBackend(msg);
       // Add AI response
       setMessages([...newMessages, { sender: "ai", text: aiResponse }]);
     } catch (err) {
