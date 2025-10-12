@@ -1,0 +1,1 @@
+import{j as e}from"./index-BWcs1VA8.js";const a=()=>e.jsxs("header",{className:"header-root",children:[e.jsx("div",{className:"header-title-bg",children:e.jsx("h1",{className:"header-title",children:"Luna"})}),e.jsx("div",{className:"header-underline"})]});export{a as H};

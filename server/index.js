@@ -2,9 +2,10 @@ import express from "express"
 import mongoose from "mongoose"
 import cors from "cors"
 import dotenv from "dotenv"
-import chatMessage from "./models/chatMessage.js"
+import chatMessage from "./models/ChatMessage.js"
 import router from "./routes/chatRoute.js"
 import conversationRoute from "./routes/conversationRoute.js"
+import messageRoutes from "./routes/messageRoute.js"
 
 dotenv.config()
 
@@ -12,11 +13,13 @@ const app = express()
 const dbName = "Luna";
 const PORT = process.env.PORT;
 
+
 //middle wires
 app.use(cors());
 app.use(express.json());
 app.use("/api/chat" , router);
 app.use("/api/conversations", conversationRoute);
+app.use("/api/messages" , messageRoutes);
 
 
 //test route
