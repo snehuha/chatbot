@@ -4,6 +4,7 @@ import cors from "cors"
 import dotenv from "dotenv"
 import chatMessage from "./models/chatMessage.js"
 import router from "./routes/chatRoute.js"
+import conversationRoute from "./routes/conversationRoute.js"
 
 dotenv.config()
 
@@ -15,6 +16,8 @@ const PORT = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 app.use("/api/chat" , router);
+app.use("/api/conversations", conversationRoute);
+
 
 //test route
 app.get("/", (req, res)=>{

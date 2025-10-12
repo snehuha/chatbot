@@ -43,30 +43,29 @@ const JournalApp = () => {
     setEntries(updated);
   };
 
-  return (
-    <div className="container">
-      <h1>📝 My Journal</h1>
+    return (
+    <div className="min-h-screen bg-sky-200 pl-8 flex flex-col items-left">
+      <Header />
+      <div className="text-center mb-8">
+        <button className="bg white px-4 py=4 inline-block text-3xl font-sans border-2 border-black rounded-lg px-6 py-2 shadow-md bg-gray-100 mb-4">
+          <h1>Your Journal</h1>
+        </button>
+        
+        <p className="text-gray-700 italic">Let it out, one word at a time.</p>
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-
-        <div id="a4-sheet">
-          <textarea
-            placeholder="Write your thoughts here..."
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          />
+      <div className="absolute top-5 left-5 flex flex-col gap-5">
+        <div className="flex gap-8 pl-8" >
+          <button className="bg-white px-4 py-4 pl-8 rounded-xl border-8 border-black shadow hover:bg-blue-100 transition-colors font-semibold">
+            Prompt
+          </button>
+          <button className="bg-white px-4 py-2 rounded-xl border-[5px] shadow hover:bg-gray-100 transition-colors font-semibold">
+           To Save
+          </button>
         </div>
 
         <button type="submit">Save Entry</button>
-      </form>
+      </div>
 
       <h2>Your Entries</h2>
       <ul id="entries">

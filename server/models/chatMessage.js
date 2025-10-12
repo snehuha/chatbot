@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const chatMessageSchema = new mongoose.Schema({
     sender: {
@@ -12,14 +12,20 @@ const chatMessageSchema = new mongoose.Schema({
         required : true
     },
 
-    sessionId: {
-        type : String,
-        default : "default"
+    userId: {
+        type : mongoose.Schema.Types.ObjectId,
+        default : "default",
+        ref : "User"
     },
 
     timeStamp : {
         type : Date,
         default : Date.now
+    },
+
+    conversationId: {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "Conversation"
     }
 });
 
