@@ -26,13 +26,19 @@
 .font-medium { font-weight: 500; }
 
 /* Home.jsx */
-.max-w-xl { max-width: 36rem; }
+
 .text-2xl { font-size: 1.5rem; line-height: 2rem; }
 .md\:text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
 .font-semibold { font-weight: 600; }
 .flex-wrap { flex-wrap: wrap; }
 .justify-center { justify-content: center; }
 .gap-8 { gap: 2rem; }
+.layout-wrapper {
+  background-color: #a6eaf3; /* sky-200 */
+  min-height: 100vh;
+  width: 100%;
+}
+
 
 /* Button.jsx */
 .rounded-3xl { border-radius: 1.5rem; }
@@ -149,7 +155,7 @@
 
 /* Main greeting card */
 .greeting-card {
-  background: #f3e9e3;
+  background: #f6f6e6;
   border-radius: 0.7em;
   padding: 2rem 2.5rem;
   margin: 0 auto 2.5rem auto;
@@ -208,5 +214,115 @@
 }
 
 /* Additional padding classes */
-.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-.py-4 { padding-top: 1rem; padding-bottom: 1rem; } 
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+
+h1, h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* A4-like text area */
+#a4-sheet {
+  width: 794px;
+  height: 1123px;
+  max-width: 100%;
+  margin: 0 auto 30px;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 40px;
+  box-sizing: border-box;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  overflow: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form input {
+  width: 60%;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+form textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  line-height: 1.6;
+  background: transparent;
+}
+
+form button {
+  margin-top: 15px;
+  padding: 12px 24px;
+  font-size: 16px;
+  background: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #0056b3;
+}
+
+ul#entries {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+}
+
+ul#entries li {
+  background: #f9f9f9;
+  padding: 15px;
+  margin: 10px 0;
+  border-left: 5px solid #007BFF;
+  border-radius: 6px;
+  text-align: left;
+}
+
+ul#entries h3 {
+  margin: 0 0 5px;
+}
+
+ul#entries small {
+  color: #666;
+  font-size: 12px;
+}
+
+.delete-btn {
+  background: none;
+  color: red;
+  border: none;
+  font-size: 14px;
+  float: right;
+  cursor: pointer;
+}

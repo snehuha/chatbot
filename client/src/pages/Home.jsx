@@ -9,6 +9,7 @@ const Home = () =>{
     const navigate = useNavigate();
     const handleClick = (buttonName) => {
     const routes={
+        Pause: "/pause",
         Talk: "/talk",  
         Journal: "/journal",
     };

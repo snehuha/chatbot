@@ -3,7 +3,7 @@ import Header from "./Header";
 
 const Layout = ({children, showHeader = true}) => {
     return (
-        <div className="min-h-screen bg-sky-200 flex flex-col">
+        <div className="min-h-screen bg-sky-200 w-full">
             {showHeader && <Header/>}
 
             {/* main content section */}

@@ -43,7 +43,7 @@ const InputField = ({onSend})=>{
       >
         <Send 
           className={`${message.trim() ? 'text-blue-500' : 'text-gray-300'}`} 
-          size={20} 
+          size={25} 
           strokeWidth={1.8}
         />
       </button>

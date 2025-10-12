@@ -13,11 +13,14 @@ const ChatSidebar = ()=> {
     ]
 
    return (
-    <div className="h-full flex flex-col bg-sky-300 p-4">
+    <div className="h-full flex flex-col bg-black-300 p-4">
       {/* App Title */}
       <div className="mb-6">
         <div className="bg-pink-100 rounded-lg px-4 py-2 inline-block">
-          <h1 className="text-xl font-medium text-gray-800">Luna</h1>
+          <h1 className="text-xl font-medium text-gray-800" style={{ fontFamily: "'DM Serif Display', serif", fontWeight: 'bold' }}>
+           Luna
+          </h1>
+
         </div>
       </div>
       

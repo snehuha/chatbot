@@ -75,11 +75,11 @@ const ChatArea = () => {
       </div>
       
       {/* Input Area */}
-      <div className="p-4 border-t border-gray-200 bg-white">
-        <div className="max-w-2xl mx-auto">
+      
+        <div className="max-w-2xl rounded-full mx-auto">
           <InputField onSend={handleUserMessage} />
         </div>
-      </div>
+      
     </div>
   );
 };

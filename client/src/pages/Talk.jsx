@@ -7,7 +7,7 @@ const Talk = () => {
   return (
     <div className="w-full h-screen flex bg-sky-200">
       {/* Left Sidebar */}
-      <aside className="w-1/3 max-w-sm border-r border-gray-800">
+      <aside className="w-1/3 max-w-sm bg-black border-r border-gray-800">
         <ChatSidebar />
       </aside>
       

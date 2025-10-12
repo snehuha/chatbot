@@ -1,0 +1,32 @@
+.pause-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to bottom right, #cce7ff, #b3d4ff);
+}
+  .text{
+    font-family: "Delius", cursive;
+  font-weight: 400;
+  font-style: normal;
+
+
+}
+
+.circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(188, 232, 241, 0.8), rgba(4, 133, 245, 0.5));
+  animation: breathe 16s infinite;
+}
+
+
+@keyframes breathe {
+  0%   { transform: scale(1); }
+  25%  { transform: scale(1.5); }   /* Inhale */
+  50%  { transform: scale(1.5); }   /* Hold */
+  75%  { transform: scale(1); }     /* Exhale */
+  100% { transform: scale(1); }     /* Back to start */
+}
