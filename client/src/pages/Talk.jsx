@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ChatSidebar from "../components/chat/ChatSidebar";
-import ChatArea from "../components/chat/ChatArea";
+import ChatSidebar from "../components/Chatbot/ChatSidebar";
+import ChatArea from "../components/Chatbot/ChatArea";
 import { getConversations } from "../lib/conversations";
 
 const Talk = () => {

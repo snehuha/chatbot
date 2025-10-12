@@ -2,7 +2,7 @@ import express from "express";
 import { getGeminiReply } from "../utils/gemini.js";
 import User from "../models/User.js";
 import Conversation from "../models/Conversation.js";
-import chatMessage from "../models/chatMessage.js";
+import chatMessage from "../models/ChatMessage.js";
 
 const router = express.Router();
 

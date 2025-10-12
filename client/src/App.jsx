@@ -1,20 +1,20 @@
-import { useState } from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
-import Journal from "./pages/Journal";
-import Talk from "./pages/Talk";
-
+const Home = lazy(() => import("./pages/Home"));
+const Journal = lazy(() => import("./pages/Journal"));
+const Talk = lazy(() => import("./pages/Talk"));
 
 function App() {
-
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/talk" element={<Talk />} />
-        <Route path="/journal" element={<Journal />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/talk" element={<Talk />} />
+          <Route path="/journal" element={<Journal />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }

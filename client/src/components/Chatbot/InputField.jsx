@@ -19,7 +19,7 @@ const InputField = ({onSend})=>{
 
 
     return (
-        <div className="flex items-center bg-white rounded-xl shadow-lg p-4 border border-gray-200">
+        <div className="flex items-center bg-white rounded-xl shadow-lg p-4 border border-gray-300">
       {/* Mic Icon */}
       <button className="text-gray-400 mr-3 p-1 hover:bg-gray-100 rounded-full transition-colors">
         <Mic size={20} strokeWidth={1.8} />

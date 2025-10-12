@@ -1,0 +1,55 @@
+nohup: ignoring input
+[dotenv@17.2.1] injecting env (1) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+[dotenv@17.2.1] injecting env (0) from .env -- tip: 📡 observe env with Radar: https://dotenvx.com/radar
+mongodb is connected
+🚀 Server is running on port 5000
+Looking for conversations of userId: testUser123
+Found conversations: []
+Looking for conversations of userId: testUser123
+Found conversations: []
+Looking for conversations of userId: testUser123
+Found conversations: []
+Looking for conversations of userId: testUser123
+Found conversations: []
+Looking for conversations of userId: testUser123
+Found conversations: []
+Looking for conversations of userId: testUser123
+Found conversations: [
+  {
+    _id: new ObjectId('68bdb4c7bee34834dd4fd6fd'),
+    title: 'New Conversation',
+    userId: 'testUser123',
+    createdAt: 2025-09-07T16:37:27.270Z,
+    __v: 0
+  }
+]
+Looking for conversations of userId: testUser123
+Found conversations: [
+  {
+    _id: new ObjectId('68bdb4c7bee34834dd4fd6fd'),
+    title: 'New Conversation',
+    userId: 'testUser123',
+    createdAt: 2025-09-07T16:37:27.270Z,
+    __v: 0
+  }
+]
+Looking for conversations of userId: testUser123
+Found conversations: [
+  {
+    _id: new ObjectId('68bdb4c7bee34834dd4fd6fd'),
+    title: 'New Conversation',
+    userId: 'testUser123',
+    createdAt: 2025-09-07T16:37:27.270Z,
+    __v: 0
+  }
+]
+Looking for conversations of userId: testUser123
+Found conversations: [
+  {
+    _id: new ObjectId('68bdb4c7bee34834dd4fd6fd'),
+    title: 'New Conversation',
+    userId: 'testUser123',
+    createdAt: 2025-09-07T16:37:27.270Z,
+    __v: 0
+  }
+]

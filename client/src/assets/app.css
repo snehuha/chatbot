@@ -2,7 +2,7 @@
 
 /* Layout.jsx */
 .min-h-screen { min-height: 100vh; }
-.bg-sky-200 { background-color: #a6eaf3; }
+.bg-sky-200 { background-color: #79deeb; }
 .flex { display: flex; }
 .flex-col { flex-direction: column; }
 .flex-1 { flex: 1 1 0%; }
