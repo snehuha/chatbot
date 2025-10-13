@@ -3,6 +3,7 @@ import Conversation from "../models/Conversation.js";
 
 const router = express.Router();
 
+//create a new conversation
 router.post("/", async (req, res) => {
   try {
     const { title } = req.body;
@@ -24,6 +25,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+//get all conversations of a user
 router.get("/:userId", async(req,res)=>{
     try {
         const {userId} = req.params;
@@ -38,6 +40,43 @@ router.get("/:userId", async(req,res)=>{
         console.error("Error fetching conversations, error");
         res.status(500).json({error: "Failed to fetch conversations"})
     }
+})
+
+//rename a conversation
+router.put("/:id", async(req,res)=>{
+  try {
+    const {id} = req.params;
+    const {title} = req.body;
+
+    const updatedConversation = await Conversation.findByIdAndUpdate(
+      id,
+      { title, updatedAt:Date.now() },
+      { new: true }
+    );
+
+    if(!updatedConversation){
+      return res.status(404).json({error: "Conversation not found"});
+    }
+    res.json(updatedConversation);
+  } catch (error) {
+    console.error("Error renaming conversation:", error);
+    res.status(500).json({ error: "Failed to rename conversation" });
+  }
+});
+
+//delete a conversation
+router.delete("/:id", async(req,res)=>{
+  try{
+    const id = req.params.id;
+    const deletedConversation = await Conversation.findByIdAndDelete(id);
+    if(!deletedConversation){
+      return res.status(404).json({error: "Conversation not found"});
+    }
+    res.json({message: "Conversation deleted successfully"});
+  } catch (error) {
+    console.error("Error deleting conversation:", error);
+    res.status(500).json({ error: "Failed to delete conversation" });
+  }
 })
 
 export default router;

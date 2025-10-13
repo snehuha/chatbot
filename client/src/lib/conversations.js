@@ -1,36 +1,22 @@
-const api_base = "http://localhost:5000/api";
+import axios from "axios";
+const BASE_URL = "http://localhost:5000/api"; // adjust if different
 
-export const getConversations = async (userId)=>{
-    try {
-        const res = await fetch(`${api_base}/conversations/${userId}`);
-
-        if(!res.ok){
-            throw new Error(`Server error: ${res.status}`)
-        }
-
-        return await res.json();
-
-    } catch (error) {
-        console.error("Cant fetch conversations", error);
-        return [];
-    }
+export const getConversations = async (userId) => {
+  const res = await axios.get(`${BASE_URL}/${userId}`);
+  return res.data;
 };
 
-export const createConversations = async (userId, title)=>{
-    try {
-        const res = await fetch(`${api_base}/conversations`, {
-            method: "POST",
-            headers: {"content-type" : "application/json"},
-            body: JSON.stringify({userId, title})
-        })
+export const createConversations = async (userId) => {
+  const res = await axios.post(BASE_URL, { userId, title: "New Chat" });
+  return res.data;
+};
 
-        if(!res.ok){
-            throw new Error(`Server error: ${res.status}`);
-        }
+export const renameConversation = async (id, title) => {
+  const res = await axios.put(`${BASE_URL}/${id}`, { title });
+  return res.data;
+};
 
-        return await res.json();
-    } catch (error) {
-        console.error("Error creating new conversation", error);
-        return null;
-    }
+export const deleteConversation = async (id) => {
+  const res = await axios.delete(`${BASE_URL}/${id}`);
+  return res.data;
 };

@@ -26,6 +26,20 @@ const Talk = () => {
     fetchData();
   }, []);
 
+  // 🔹 Rename conversation (temporary — local only)
+  const handleRenameConversation = async (id, newTitle) => {
+    setConversations((prev) =>
+      prev.map((c) => (c._id === id ? { ...c, title: newTitle } : c))
+    );
+  };
+
+  // 🔹 Delete conversation (temporary — local only)
+  const handleDeleteConversation = async (id) => {
+    setConversations((prev) => prev.filter((c) => c._id !== id));
+    if (activeConversationId === id) setActiveConversationId(null);
+  };
+
+
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
