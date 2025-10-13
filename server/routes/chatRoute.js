@@ -32,9 +32,18 @@ router.post("/" , async(req,res)=>{
             text: message,
             conversationId: conversation._id,
             userId: user._id
-        })
+        });
 
-        const aiReply = await getGeminiReply(message);
+        //get previous messages from db for context
+        const previousMessages = await chatMessage.find({conversationId: conversation._id})
+        .sort({createdAt: 1})
+        .limit(5)
+        .lean();
+
+        //construct previous messages
+        const contextText = previousMessages.map((m)=>`${m.sender === "user" ? "User" : "Luna"}: ${m.text}`).join("\n");
+
+        const aiReply = await getGeminiReply(message, contextText);
 
         //save ai reply
         await chatMessage.create({

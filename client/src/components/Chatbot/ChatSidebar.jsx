@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Search, MoreVertical, Trash2, Edit2 } from "lucide-react";
+import { Search, MoreVertical, Trash2, Edit2, Check, X } from "lucide-react";
 import { getConversations, createConversations, renameConversation, deleteConversation } from "../../lib/conversations";
+import { motion, AnimatePresence } from "framer-motion";
+
 
 const ChatSidebar = ({
   conversations,
@@ -12,6 +14,7 @@ const ChatSidebar = ({
   const [menuOpenId, setMenuOpenId] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [newTitle, setNewTitle] = useState("");
+  const [editedTitle, setEditedTitle] = useState("");
 
   // Fetch conversations on mount
   useEffect(() => {
@@ -102,81 +105,100 @@ const ChatSidebar = ({
           {conversations.length === 0 ? (
             <p className="text-sm text-gray-600">No conversations yet</p>
           ) : (
-            conversations.map((conv) => (
-              <div
-                key={conv._id}
-                className={`group flex items-center justify-between p-3 rounded-lg shadow-sm text-sm transition-colors border relative ${
-                  activeConversationId === conv._id
-                    ? "bg-pink-100 text-gray-900 border-gray-300"
-                    : "bg-white text-gray-800 hover:bg-gray-50 border-gray-100"
-                }`}
-              >
-                {/* Title or edit input */}
-                {editingId === conv._id ? (
-                  <input
-                    type="text"
-                    value={newTitle}
-                    onChange={(e) => setNewTitle(e.target.value)}
-                    onBlur={() => {
-                      handleRename(conv._id, newTitle);
-                      setEditingId(null);
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        handleRename(conv._id, newTitle);
-                        setEditingId(null);
-                      }
-                    }}
-                    className="flex-1 bg-gray-100 text-sm p-1 rounded"
-                    autoFocus
-                  />
-                ) : (
-                  <p
-                    onClick={() => setActiveConversationId(conv._id)}
-                    className="truncate flex-1 cursor-pointer"
+            <AnimatePresence>
+              {conversations.map((conv) => (
+                <motion.div
+                  key={conv._id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div
+                    className={`flex items-center justify-between p-3 rounded-lg shadow-sm text-sm transition-colors border ${
+                      activeConversationId === conv._id
+                        ? "bg-pink-100 text-gray-900 border-gray-300"
+                        : "bg-white text-gray-800 hover:bg-gray-50 border-gray-100"
+                    }`}
                   >
-                    {conv.title}
-                  </p>
-                )}
-
-                {/* Options menu */}
-                <div className="relative">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setMenuOpenId(menuOpenId === conv._id ? null : conv._id);
-                    }}
-                    className="p-1 hover:bg-gray-100 rounded"
-                  >
-                    <MoreVertical size={16} />
-                  </button>
-
-                  {menuOpenId === conv._id && (
-                    <div className="absolute right-0 mt-2 w-28 bg-white border rounded shadow-md z-10">
-                      <button
-                        onClick={() => {
-                          setEditingId(conv._id);
-                          setNewTitle(conv.title);
-                          setMenuOpenId(null);
-                        }}
-                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                      >
-                        <Edit2 size={14} /> Rename
-                      </button>
-                      <button
-                        onClick={() => {
-                          handleDelete(conv._id);
-                          setMenuOpenId(null);
-                        }}
-                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-red-600 hover:bg-red-50"
-                      >
-                        <Trash2 size={14} /> Delete
-                      </button>
+                    <div
+                      onClick={() => setActiveConversationId(conv._id)}
+                      className="flex-1 cursor-pointer"
+                    >
+                      {editingId === conv._id ? (
+                        <input
+                          value={editedTitle}
+                          onChange={(e) => setEditedTitle(e.target.value)}
+                          onKeyDown={(e) => e.key === "Enter" && handleRename(conv._id, editedTitle)}
+                          className="border border-gray-300 rounded px-2 py-1 text-sm w-full"
+                          autoFocus
+                        />
+                      ) : (
+                        <span>{conv.title}</span>
+                      )}
                     </div>
-                  )}
-                </div>
-              </div>
-            ))
+
+                    {/* Action Buttons */}
+                    <div className="flex items-center gap-2 ml-2">
+                      {editingId === conv._id ? (
+                        <>
+                          <button
+                            onClick={() => handleRename(conv._id, editedTitle)}
+                            className="text-green-600 hover:text-green-800"
+                          >
+                            <Check size={16} />
+                          </button>
+                          <button
+                            onClick={() => setEditingId(null)}
+                            className="text-gray-500 hover:text-gray-700"
+                          >
+                            <X size={16} />
+                          </button>
+                        </>
+                      ) : (
+                        <div className="relative">
+                          <button
+                            onClick={() => setMenuOpenId(menuOpenId === conv._id ? null : conv._id)}
+                            className="text-gray-500 hover:text-gray-800"
+                          >
+                            <MoreVertical size={16} />
+                          </button>
+                          
+                          {/* Dropdown Menu */}
+                          {menuOpenId === conv._id && (
+                            <div className="absolute right-0 mt-1 w-36 bg-white rounded-md shadow-lg z-10 border border-gray-200">
+                              <div className="py-1">
+                                <button
+                                  onClick={() => {
+                                    setEditingId(conv._id);
+                                    setEditedTitle(conv.title);
+                                    setMenuOpenId(null);
+                                  }}
+                                  className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                                >
+                                  <Edit2 size={14} className="mr-2" />
+                                  Rename
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    handleDelete(conv._id);
+                                    setMenuOpenId(null);
+                                  }}
+                                  className="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-gray-100 w-full text-left"
+                                >
+                                  <Trash2 size={14} className="mr-2" />
+                                  Delete
+                                </button>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           )}
         </div>
       </div>
