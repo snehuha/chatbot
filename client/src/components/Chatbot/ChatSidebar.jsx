@@ -38,15 +38,15 @@ const ChatSidebar = ({
   };
 
 // Rename a conversation
-  const handleRename = async (id) => {
-    if (!editedTitle.trim()) return;
+  const handleRename = async (id, title) => {
+    if (!title.trim()) return;
     try {
-      const updated = await renameConversation(id, editedTitle);
+      const updated = await renameConversation(id, title);
       setConversations((prev) =>
         prev.map((conv) => (conv._id === id ? updated : conv))
       );
       setEditingId(null);
-      setEditedTitle("");
+      setNewTitle("");
     } catch (err) {
       console.error("Failed to rename conversation:", err);
     }

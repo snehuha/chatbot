@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:5000/api"; // adjust if different
+const BASE_URL = "http://localhost:5000/api/conversations"; // correct endpoint
 
 export const getConversations = async (userId) => {
   const res = await axios.get(`${BASE_URL}/${userId}`);
