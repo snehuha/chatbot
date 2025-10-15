@@ -2,11 +2,14 @@ import express from "express";
 import { getGeminiReply } from "../utils/gemini.js";
 import User from "../models/User.js";
 import Conversation from "../models/Conversation.js";
-import chatMessage from "../models/ChatMessage.js";
+import chatMessage from "../models/chatMessage.js";
+import { rateLimiter } from "../middlewares/ratelimiter.js";
+
+
 
 const router = express.Router();
 
-router.post("/" , async(req,res)=>{
+router.post("/" , rateLimiter, async(req,res)=>{
     try {
         const { message } = req.body;
 
