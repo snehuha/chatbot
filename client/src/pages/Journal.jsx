@@ -3,23 +3,22 @@ import Header from '../components/common/Header';
 import { useState, useEffect } from "react";
 import Button from '../components/common/Button';
 import '../assets/app.css';
+import "./Journal.css"; // keep your CSS file
+
 export default function Journal() {
-
-
-const JournalApp = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [entries, setEntries] = useState([]);
 
-  // Load from localStorage on mount
+  // Load entries from localStorage on mount
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem('journalEntries')) || [];
-    setEntries(saved);
+    const savedEntries = JSON.parse(localStorage.getItem("journalEntries")) || [];
+    setEntries(savedEntries);
   }, []);
 
-  // Save to localStorage when entries change
+  // Save entries to localStorage whenever entries change
   useEffect(() => {
-    localStorage.setItem('journalEntries', JSON.stringify(entries));
+    localStorage.setItem("journalEntries", JSON.stringify(entries));
   }, [entries]);
 
   const handleSubmit = (e) => {
@@ -27,45 +26,51 @@ const JournalApp = () => {
     if (!title.trim() || !content.trim()) return;
 
     const newEntry = {
-      title,
-      content,
+      title: title.trim(),
+      content: content.trim(),
       date: new Date().toLocaleString(),
     };
 
+    // newest entry on top
     setEntries([newEntry, ...entries]);
-    setTitle('');
-    setContent('');
+    setTitle("");
+    setContent("");
   };
 
-  const deleteEntry = (index) => {
-    const updated = [...entries];
-    updated.splice(index, 1);
-    setEntries(updated);
+  const handleDelete = (index) => {
+    const updatedEntries = entries.filter((_, i) => i !== index);
+    setEntries(updatedEntries);
   };
 
-    return (
-    <div className="min-h-screen bg-sky-200 pl-8 flex flex-col items-left">
-      <Header />
-      <div className="text-center mb-8">
-        <button className="bg white px-4 py=4 inline-block text-3xl font-sans border-2 border-black rounded-lg px-6 py-2 shadow-md bg-gray-100 mb-4">
-          <h1>Your Journal</h1>
-        </button>
-        
-        <p className="text-gray-700 italic">Let it out, one word at a time.</p>
-      </div>
+  return (
+    <div className="container">
+      <h1> My Journal</h1>
 
-      <div className="absolute top-5 left-5 flex flex-col gap-5">
-        <div className="flex gap-8 pl-8" >
-          <button className="bg-white px-4 py-4 pl-8 rounded-xl border-8 border-black shadow hover:bg-blue-100 transition-colors font-semibold">
-            Prompt
-          </button>
-          <button className="bg-white px-4 py-2 rounded-xl border-[5px] shadow hover:bg-gray-100 transition-colors font-semibold">
-           To Save
-          </button>
-        </div>
+      <form onSubmit={handleSubmit}>
+      
+        <div id="a4-sheet">
+          <input
+      type="text"
+      placeholder="What's the date and time right now?"
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
+      required
+    />
+  
+
+  {/* Content Section */}
+  <div className="mb-4">
+    <textarea
+      placeholder="What are you thinking at the moment?"
+      value={content}
+      onChange={(e) => setContent(e.target.value)}
+      required
+    />
+  </div>
+</div>
 
         <button type="submit">Save Entry</button>
-      </div>
+      </form>
 
       <h2>Your Entries</h2>
       <ul id="entries">
@@ -73,7 +78,9 @@ const JournalApp = () => {
           <li key={index}>
             <h3>
               {entry.title}
-              <button className="delete-btn" onClick={() => deleteEntry(index)}>Delete</button>
+              <button className="delete-btn" onClick={() => handleDelete(index)}>
+                Delete
+              </button>
             </h3>
             <p>{entry.content}</p>
             <small>{entry.date}</small>
@@ -82,7 +89,4 @@ const JournalApp = () => {
       </ul>
     </div>
   );
-};
-
-return <JournalApp />;
 }
