@@ -3,39 +3,47 @@ import Header from '../components/common/Header';
 import { useState, useEffect } from "react";
 import Button from '../components/common/Button';
 import '../assets/app.css';
-import "./Journal.css"; // keep your CSS file
+import "./Journal.css"; 
+import axios from "axios";
 
 export default function Journal() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [entries, setEntries] = useState([]);
 
-  // Load entries from localStorage on mount
-  useEffect(() => {
-    const savedEntries = JSON.parse(localStorage.getItem("journalEntries")) || [];
-    setEntries(savedEntries);
-  }, []);
 
-  // Save entries to localStorage whenever entries change
-  useEffect(() => {
-    localStorage.setItem("journalEntries", JSON.stringify(entries));
-  }, [entries]);
+const saveEntry = async () => {
+  await axios.post("http://localhost:5000/entries", { title, content });
+};
+useEffect(() => {
+  axios.get("http://localhost:5000/entries").then(res => {
+    setEntries(res.data);
+  });
+}, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!title.trim() || !content.trim()) return;
 
-    const newEntry = {
-      title: title.trim(),
-      content: content.trim(),
-      date: new Date().toLocaleString(),
-    };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!title.trim() || !content.trim()) return;
 
-    // newest entry on top
-    setEntries([newEntry, ...entries]);
+  try {
+    // Send data to backend (MongoDB)
+    const res = await axios.post("http://localhost:5000/entries", {
+      title,
+      content,
+    });
+
+    // Add new entry to your list (the one returned by MongoDB)
+    setEntries([res.data, ...entries]);
+
+    // Clear inputs
     setTitle("");
     setContent("");
-  };
+  } catch (error) {
+    console.error("Error saving entry:", error);
+  }
+};
+
 
   const handleDelete = (index) => {
     const updatedEntries = entries.filter((_, i) => i !== index);
