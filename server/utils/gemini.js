@@ -1,5 +1,4 @@
 
-
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv"
 
@@ -7,104 +6,69 @@ dotenv.config();
 const genAI = new GoogleGenerativeAI(process.env.VITE_GEMINI_API_KEY);
 
 
-const model = genAI.getGenerativeModel({ 
+const model = genAI.getGenerativeModel({
   model: "gemini-2.0-flash",
   generationConfig: {
-      maxOutputTokens: 150, // keeps replies short and digestible
-      temperature: 0.7, // balanced creativity
-    }, 
+    maxOutputTokens: 150, // keeps replies short and digestible
+    temperature: 0.7, // balanced creativity
+  },
 });
 
-// Lightweight message classifier to allow only mental health related inputs
-const isMentalHealthRelated = (message) => {
-  const mentalHealthKeywords = [
-    "anxiety",
-    "depression",
-    "stress",
-    "sad",
-    "lonely",
-    "panic",
-    "mental",
-    "therapy",
-    "trauma",
-    "self harm",
-    "anger",
-    "grief",
-    "heartbreak",
-    "emotion",
-    "feel",
-    "relationship",
-    "confidence",
-    "fear",
-    "worry",
-    "help",
-    "motivation",
-  ];
-
-  const lowerMsg = message.toLowerCase();
-  return mentalHealthKeywords.some((kw) => lowerMsg.includes(kw));
-};
-
-
-export const getGeminiReply = async (message, conversationHistory =[])=>{
+export const getGeminiReply = async (message, history = []) => {
   try {
-
-     //  Luna's persona prompt
-    const systemPrompt = `
+    // Luna's persona and system instructions
+    const systemInstruction = `
       You are Luna, a compassionate mental health assistant.
       Your tone is warm, gentle, and empathetic.
-      - Reply in 2-3 sentences only.
-      - Use simple, kind, and emotionally intelligent language.
-      - Ask one reflective follow-up question at the end.
-      - Never give medical, legal, or financial advice.
       
+      **Your Persona:**
+      - You are a supportive listener, not a problem solver.
+      - Reply in 2-3 sentences only. Keep it conversational.
+      - Use simple, kind, and emotionally intelligent language.
+      - Ask one reflective follow-up question at the end to encourage the user to open up.
+      - **NEVER** give medical, legal, or financial advice.
+      - You are **not** a medical professional - never provide diagnoses, treatments, or prescriptions.
 
-      you are **not** a medical professional - never provide diagnoses, treatments, prescriptions.
-
-      If the user asks for anything outside mental health, relationships, mindfulness, journaling, or emotional support — 
-      kindly decline and redirect them back to wellness topics. 
-      For example:
-      "I'm here to talk about your feelings and emotional well-being. Maybe we can explore what’s been on your mind lately?"
-  
+      **Guardrails & Topics:**
+      - Your primary focus is mental health, emotional well-being, relationships, mindfulness, and self-care.
+      - **Borderline Topics:** If a user mentions stress related to work, school, or daily life (e.g., "I failed my math test", "My boss is annoying"), **DO NOT** decline. Instead, focus on the *emotional impact* (e.g., "That sounds really stressful. How are you handling the pressure?").
+      - **Unrelated Topics:** If the user asks for code, math solutions, stock tips, news, or general facts that have *no emotional context*, kindly decline and redirect them. 
+        - Example: "I'm best at helping with your feelings and well-being. Is there something on your mind you'd like to talk about?"
     `;
 
-    //apply guardrails to restrict unrelated topics
-    const restrictedTopics = [
-      /(math|solve|equation|integrate|calculate)/i,
-      /(program|code|javascript|python|ai model|database|express|react)/i,
-      /(politics|news|sports|celebrity|stock|crypto|business)/i,
-      /(movie|song|recipe|game|hack|download)/i,
-    ];
+    const chat = model.startChat({
+      history: history,
+      systemInstruction: systemInstruction, // Gemini 1.5/2.0 supports systemInstruction at model level, but for startChat it's often better to prepend or use the model config if supported. 
+      // Note: The JS SDK passes systemInstruction in getGenerativeModel, but we can also just prepend it to the history or rely on the model's behavior.
+      // For 2.0 Flash, let's try passing it in the model config if we were initializing it there, but since we already initialized 'model' globally, 
+      // we can't easily change it per request. 
+      // STRATEGY: We will use a fresh model instance or just rely on the fact that we can't easily pass systemInstruction to startChat in the current SDK version without re-init.
+      // HOWEVER, a better pattern for per-chat system prompts in the current SDK is to just include it as the first part of the history if the SDK doesn't support dynamic system prompts well yet, 
+      // OR better yet, re-initialize the model with the system instruction for this request.
+    });
 
-    //check if the message contains any restricted topic
-    const isRestricted = restrictedTopics.some(topic => topic.test(message));
-    if(isRestricted){
-      return "I'm here to help with mental health topics. Could you please ask about that?";
-    }
+    // Re-initializing model to ensure systemInstruction is passed correctly for this specific flow
+    // This is cheap in the JS SDK as it's just a config object.
+    const chatModel = genAI.getGenerativeModel({
+      model: "gemini-2.0-flash",
+      systemInstruction: systemInstruction,
+      generationConfig: {
+        maxOutputTokens: 150,
+        temperature: 0.7,
+      },
+    });
 
-    //check if the message is mental health related
-    if (!isMentalHealthRelated(message)) {
-      return "I'm here only to help with emotional or mental well-being topics. Could you tell me how you're feeling or what’s been troubling you lately?";
-    }
+    const chatSession = chatModel.startChat({
+      history: history,
+    });
 
-    //prepare the full prompt
-    const fullPrompt = `
-    ${systemPrompt}
-
-    conversation so far:
-    ${conversationHistory}.
-
-    user said ${message}
-
-    Respond as Luna.
-    `
-    const result = await model.generateContent(fullPrompt);
+    const result = await chatSession.sendMessage(message);
     const response = result.response;
-    const text = response.candidates?.[0]?.content?.parts?.[0]?.text || ""
+    const text = response.text();
 
     return text;
   } catch (error) {
-    console.error("Gemini api error: " , error);
+    console.error("Gemini api error: ", error);
     throw new Error("Failed to fetch gemini response");
   }
-}
+};
