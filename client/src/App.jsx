@@ -5,16 +5,18 @@ const Home = lazy(() => import("./pages/Home"));
 const Journal = lazy(() => import("./pages/Journal"));
 const Talk = lazy(() => import("./pages/Talk"));
 const Pause = lazy(() => import("./pages/Pause"));
+const LandingPage = lazy(() => import("./pages/LandingPage"));
 
 function App() {
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/app" element={<Home />} />
           <Route path="/talk" element={<Talk />} />
           <Route path="/journal" element={<Journal />} />
-          <Route path="/pause" element={<Pause/>}/>
+          <Route path="/pause" element={<Pause />} />
         </Routes>
       </Suspense>
     </Router>
