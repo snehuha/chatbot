@@ -4,29 +4,46 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(to bottom right, #cce7ff, #b3d4ff);
-}
-  .text{
-    font-family: "Delius", cursive;
-  font-weight: 400;
-  font-style: normal;
-
-
+  background: radial-gradient(circle, #dbeafe, #e3efbf);
 }
 
 .circle {
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(188, 232, 241, 0.8), rgba(4, 133, 245, 0.5));
-  animation: breathe 16s infinite;
+  background: radial-gradient(
+    circle,
+    rgba(141, 240, 124, 0.9),
+    rgba(1, 51, 13, 0.868)
+  );
+  box-shadow: 0 0 50px rgba(39, 253, 1, 0.6);
 }
 
-
-@keyframes breathe {
-  0%   { transform: scale(1); }
-  25%  { transform: scale(1.5); }   /* Inhale */
-  50%  { transform: scale(1.5); }   /* Hold */
-  75%  { transform: scale(1); }     /* Exhale */
-  100% { transform: scale(1); }     /* Back to start */
+.text {
+  font-family: "Delius", cursive;
+  font-size: 3rem;
+  color: #01340f;
+  margin-top: 60px;
 }
+.btn {
+  margin-top: 20px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  border-radius: 999px;
+  border: none;
+  background: #4e7e14;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background: #7fd42f;
+  transform: scale(1.05);
+}
+
+.restart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;}

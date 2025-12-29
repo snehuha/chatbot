@@ -68,17 +68,13 @@ const ChatSidebar = ({
   };
 
   return (
-    <div className="h-full flex flex-col bg-sky-300 p-4">
+    <div className="h-screen w-[280px] flex flex-col bg-gradient-to-br from-avocado to-[#7a9455] p-4 shrink-0">
       {/* App Title */}
       <div className="mb-6">
-        <div className="bg-pink-100 rounded-lg px-4 py-2 inline-block">
-          <h1
-            className="text-xl font-medium text-gray-800"
-            style={{ fontFamily: "'DM Serif Display', serif", fontWeight: "bold" }}
-          >
-            Luna
-          </h1>
-        </div>
+        <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-gradient-to-br from-avocado to-[#7a9455] rounded-full flex items-center justify-center text-2xl">🥑</div>
+                    <span className="text-xl font-bold text-gray-800 tracking-tight">Luna</span>
+                </div>
       </div>
 
       {/* New Chat Button */}

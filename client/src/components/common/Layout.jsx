@@ -1,9 +1,10 @@
 import React from "react";
 import Header from "./Header";
 
+
 const Layout = ({children, showHeader = true}) => {
     return (
-        <div className="min-h-screen bg-sky-200 w-full">
+        <div className="min-h-screen bg-cream-200 w-full">
             {showHeader && <Header/>}
 
             {/* main content section */}

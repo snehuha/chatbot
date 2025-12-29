@@ -1,25 +1,32 @@
 body {
   font-family: "Segoe UI", sans-serif;
-  background: #b0e0e6;
+  background: #f2f3f0;
   margin: 0;
   padding: 40px 0;
-  display: flex;
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
 }
 
 .container {
-  background: #b0e0e6;
+  background: #eef2e9;
   padding: 30px;
   border-radius: 10px;
   
   text-align: center;
 }
 
-h1, h2 {
-  color: #333;
+h1 {
+  color: #556b2f;
   margin-bottom: 20px;
+  font-family: "Delius", cursive;
+  font-size: 4rem
+}
+h2 {
+  color: #556b2f;
+  margin-bottom: 20px;
+  font-family: "Delius", cursive;
+  font-size: 2rem;
 }
 
 /* A4-like text area */
@@ -28,7 +35,7 @@ h1, h2 {
   height: 1123px;
   max-width: 100%;
   margin: 0 auto 30px;
-  background: white;
+  background: #fffdd0;
   border: 1px solid #ccc;
   padding: 40px;
   box-sizing: border-box;
@@ -66,7 +73,7 @@ form button {
   margin-top: 15px;
   padding: 12px 24px;
   font-size: 16px;
-  background: #007BFF;
+  background: #556b2f;
   color: white;
   border: none;
   border-radius: 6px;
@@ -74,7 +81,7 @@ form button {
 }
 
 form button:hover {
-  background: #0056b3;
+  background: #556b2f;
 }
 
 ul#entries {

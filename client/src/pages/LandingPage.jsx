@@ -69,7 +69,7 @@ const LandingPage = () => {
                             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </button>
                         <button
-                            onClick={() => navigate('/app')}
+                            onClick={() => navigate('/pause')}
                             className="group bg-white hover:bg-gray-50 text-gray-700 text-lg font-bold py-4 px-8 rounded-full transition-all duration-300 shadow-sm hover:shadow-md border border-gray-100 flex items-center justify-center gap-2"
                         >
                             <PauseCircle className="w-5 h-5 text-avocado" />
@@ -136,7 +136,7 @@ const LandingPage = () => {
                     <p className="text-gray-600 max-w-2xl mx-auto">Scientifically backed tools to help you navigate anxiety and stress.</p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
 
                     {/* Feature 1: The Pause */}
                     <motion.div
@@ -171,7 +171,21 @@ const LandingPage = () => {
                             Start chatting <ArrowRight className="w-4 h-4" />
                         </button>
                     </motion.div>
-
+                    {/* Feature 3: The Journal */}
+                    <motion.div
+                        whileHover={{ y: -10 }}
+                        className="bg-white/60 backdrop-blur-xl p-10 rounded-[2rem] shadow-xl border border-white/50 hover:border-avocado/30 transition-all duration-300"
+                    >
+                        <div className="w-16 h-16 bg-gradient-to-br from-sage/20 to-avocado/20 rounded-2xl flex items-center justify-center mb-8 shadow-inner">
+                            <Heart className="w-8 h-8 text-red-400 fill-current" />
+                        </div>
+                        <h3 className="text-2xl font-bold mb-4 text-gray-800">The Journal</h3>
+                        <p className="text-gray-600 leading-relaxed mb-6">
+                            A private space to <b>reflect and release</b> your thoughts and feelings. Writing has been shown to improve mental clarity. Let Luna be your companion on this journey of healing. </p>
+                        <button onClick={() => navigate('/journal')} className="text-avocado font-bold hover:underline flex items-center gap-1">
+                            Start journaling <ArrowRight className="w-4 h-4" />
+                        </button>            
+                    </motion.div>
                 </div>
             </section>
 

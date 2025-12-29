@@ -6,6 +6,7 @@ import chatMessage from "./models/ChatMessage.js"
 import router from "./routes/chatRoute.js"
 import conversationRoute from "./routes/conversationRoute.js"
 import messageRoutes from "./routes/messageRoute.js"
+import journalRoutes from "./routes/journalRoute.js"
 
 dotenv.config()
 

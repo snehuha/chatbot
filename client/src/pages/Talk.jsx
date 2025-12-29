@@ -43,7 +43,7 @@ const Talk = () => {
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <div className="w-1/4 border-r border-gray-200">
+      <div className="flex h-screen w-screen overflow-hidden">
         <ChatSidebar
           conversations={conversations}
           setConversations={setConversations}
