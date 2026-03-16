@@ -41,23 +41,21 @@ const Talk = () => {
 
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen w-screen overflow-hidden">
       {/* Sidebar */}
-      <div className="flex h-screen w-screen overflow-hidden">
-        <ChatSidebar
-          conversations={conversations}
-          setConversations={setConversations}
-          activeConversationId={activeConversationId}
-          setActiveConversationId={setActiveConversationId}
-        />
-      </div>
+      <ChatSidebar
+        conversations={conversations}
+        setConversations={setConversations}
+        activeConversationId={activeConversationId}
+        setActiveConversationId={setActiveConversationId}
+      />
 
       {/* Chat Area */}
-      <div className="flex-1">
+      <div className="flex-1 h-full flex items-center justify-center bg-gray-50">
         {activeConversationId ? (
           <ChatArea activeConversationId={activeConversationId} />
         ) : (
-          <div className="flex items-center justify-center h-full text-gray-600">
+          <div className="text-gray-500 text-lg font-medium">
             Select or start a conversation
           </div>
         )}

@@ -44,10 +44,16 @@ router.post("/", rateLimiter, async (req, res) => {
             .lean();
 
         //construct previous messages for Gemini history
-        const history = previousMessages.map((m) => ({
+        let history = previousMessages.map((m) => ({
             role: m.sender === "user" ? "user" : "model",
             parts: [{ text: m.text }],
         }));
+
+        // Gemini API requires history to start with a "user" message
+        // Remove any leading "model" messages to prevent validation errors
+        while (history.length > 0 && history[0].role === "model") {
+            history.shift();
+        }
 
         const aiReply = await getGeminiReply(message, history);
 

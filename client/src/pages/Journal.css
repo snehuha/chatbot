@@ -2,117 +2,205 @@ body {
   font-family: "Segoe UI", sans-serif;
   background: #f2f3f0;
   margin: 0;
-  padding: 40px 0;
-  justify-content: center;
-  align-items: flex-start;
+  padding: 0;
   min-height: 100vh;
 }
 
-.container {
-  background: #eef2e9;
-  padding: 30px;
-  border-radius: 10px;
-  
-  text-align: center;
+/* Two-column layout */
+.journal-page {
+  display: flex;
+  min-height: 100vh;
+  gap: 0;
 }
 
-h1 {
-  color: #556b2f;
-  margin-bottom: 20px;
-  font-family: "Delius", cursive;
-  font-size: 4rem
+/* Left Sidebar - Entries List */
+.entries-sidebar {
+  width: 320px;
+  min-width: 320px;
+  background: linear-gradient(135deg, #556b2f 0%, #7a9455 100%);
+  padding: 24px;
+  overflow-y: auto;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
-h2 {
-  color: #556b2f;
-  margin-bottom: 20px;
+
+.entries-sidebar h2 {
+  color: white;
   font-family: "Delius", cursive;
-  font-size: 2rem;
+  font-size: 1.8rem;
+  margin: 0 0 20px 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Main Content Area */
+.journal-main {
+  flex: 1;
+  background: #eef2e9;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.journal-main h1 {
+  color: #556b2f;
+  margin-bottom: 30px;
+  font-family: "Delius", cursive;
+  font-size: 3rem;
 }
 
 /* A4-like text area */
 #a4-sheet {
   width: 794px;
-  height: 1123px;
+  height: 900px;
   max-width: 100%;
   margin: 0 auto 30px;
   background: #fffdd0;
   border: 1px solid #ccc;
   padding: 40px;
   box-sizing: border-box;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   overflow: auto;
+  border-radius: 4px;
 }
 
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 
 form input {
   width: 60%;
   margin-bottom: 15px;
-  padding: 10px;
+  padding: 12px 15px;
   font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 6px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+form input:focus {
+  outline: none;
+  border-color: #556b2f;
+  box-shadow: 0 0 0 2px rgba(85, 107, 47, 0.2);
 }
 
 form textarea {
   width: 100%;
   height: 100%;
+  min-height: 700px;
   resize: none;
   border: none;
   outline: none;
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.8;
   background: transparent;
 }
 
 form button {
   margin-top: 15px;
-  padding: 12px 24px;
+  padding: 14px 32px;
   font-size: 16px;
-  background: #556b2f;
+  font-weight: 600;
+  background: linear-gradient(135deg, #556b2f 0%, #6a8239 100%);
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(85, 107, 47, 0.3);
 }
 
 form button:hover {
-  background: #556b2f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(85, 107, 47, 0.4);
 }
 
+/* Entries List */
 ul#entries {
   list-style: none;
   padding: 0;
-  margin-top: 30px;
+  margin: 0;
 }
 
 ul#entries li {
-  background: #f9f9f9;
-  padding: 15px;
-  margin: 10px 0;
-  border-left: 5px solid #007BFF;
-  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 16px;
+  margin: 12px 0;
+  border-left: 4px solid #fffdd0;
+  border-radius: 8px;
   text-align: left;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+ul#entries li:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+ul#entries li.no-entries {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+  border-left-color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  font-style: italic;
 }
 
 ul#entries h3 {
-  margin: 0 0 5px;
+  margin: 0 0 8px;
+  font-size: 1rem;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul#entries p {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
 }
 
 ul#entries small {
-  color: #666;
-  font-size: 12px;
+  color: #888;
+  font-size: 0.75rem;
 }
 
 .delete-btn {
   background: none;
-  color: red;
+  color: #dc3545;
   border: none;
-  font-size: 14px;
-  float: right;
+  font-size: 12px;
   cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: rgba(220, 53, 69, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .journal-page {
+    flex-direction: column;
+  }
+  
+  .entries-sidebar {
+    width: 100%;
+    min-width: unset;
+    max-height: 300px;
+  }
+  
+  #a4-sheet {
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+  }
 }
