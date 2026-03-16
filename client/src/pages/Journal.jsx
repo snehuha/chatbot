@@ -6,7 +6,7 @@ import '../assets/app.css';
 import "./Journal.css";
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/entries";
+const API_BASE_URL = "http://localhost:5000/api/entries";
 const TEMP_USER_ID = "testUser123"; // Temporary user ID
 
 export default function Journal() {

@@ -21,6 +21,7 @@ app.use(express.json());
 app.use("/api/chat" , router);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages" , messageRoutes);
+app.use("/api/entries", journalRoutes);
 
 
 //test route
